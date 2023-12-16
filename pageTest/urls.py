@@ -1,6 +1,7 @@
-from django.urls import path
-from pageTest import views
+from django.urls import path, include
+from pageTest.views import index
 
 urlpatterns = [
-    path("", views.index, name = "HomePage"),
+    path("", index, name = "HomePage"),
+    path("data/", include("pageTest.api.urls")),
 ]
