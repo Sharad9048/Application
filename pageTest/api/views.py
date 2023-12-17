@@ -1,7 +1,6 @@
 from rest_framework.response import Response
 from pageTest.models import Inventory
 from pageTest.api.serializers import InventorySerializer
-from rest_framework.decorators import api_view
 from rest_framework.views import APIView
 
 class InventoryManager(APIView):
@@ -38,3 +37,11 @@ class InventoryManager(APIView):
             return Response(inventorySerial.data)
         else:
             return Response(inventorySerial.errors)
+        
+    def patch(self, request):
+        """
+        @input : request
+        @output : JSON response
+        It will accept data to update the inventory
+        """
+        pass
