@@ -10,7 +10,8 @@ class InventoryManager(APIView):
         @output : JSON response
         You will get all the inventory data in JSON format.
         """
-        inventory = Inventory.objects.all()
+        print(request.data)
+        inventory = Inventory.objects.all() # filter(userid = request.data["filter"]["userid"])
         inventorySerial = InventorySerializer(inventory, many = True)
         return Response(inventorySerial.data)
     def put(self, request):
@@ -31,6 +32,7 @@ class InventoryManager(APIView):
         @output : JSON response
         It will accept dictionary data and store it into the inventory table.
         """
+        print(request.data)
         inventorySerial = InventorySerializer(data=request.data)
         if inventorySerial.is_valid():
             inventorySerial.save()
