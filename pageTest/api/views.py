@@ -1,7 +1,9 @@
 from rest_framework.response import Response
 from pageTest.models import Inventory
-from pageTest.api.serializers import InventorySerializer
+from pageTest.api.serializers import InventorySerializer, UserSerializer
 from rest_framework.views import APIView
+from django.contrib.auth.models import User
+from django.contrib.auth.hashers import PBKDF2SHA1PasswordHasher
 
 class InventoryManager(APIView):
     def get(self, request):
@@ -47,3 +49,15 @@ class InventoryManager(APIView):
         It will accept data to update the inventory
         """
         pass
+
+class UserData(APIView):
+    def get(self, request):
+        userdata = User.objects.all()
+        userSerial = UserSerializer(userdata,many = True)
+        return Response(userSerial.data)
+    
+    def post(self, request):
+        hasher = PBKDF2SHA1PasswordHasher()
+        username = request.data['username']
+        password = hasher.encode(request.data['password'],'seasalt2')
+        return Response({'username':username, 'password':password})

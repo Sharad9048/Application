@@ -22,4 +22,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('home/',views.index),
     path('page/', include("pageTest.urls")),
+    path('login/',include("loginAuth.urls"))
 ]
